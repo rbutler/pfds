@@ -1,4 +1,5 @@
 module Pfds.Ch03.Ex where
+import Text.PrettyPrint
 
 class Heap h where
   empty   :: Ord a => h a
@@ -56,29 +57,46 @@ fromList l = head $ keepMergingPairs $ singletons
 --fromList [1,7,3,4,5,9,2]
 
 -- Ex 3.4
-data WeightBiasedLeftistHeap a = WBEmpty | WBNode Int (WeightBiasedLeftistHeap a) a (WeightBiasedLeftistHeap a)
+-- b done - need to do c
+data WeightBiasedLeftistHeap a = WBEmpty | WBNode (WeightBiasedLeftistHeap a) a (WeightBiasedLeftistHeap a)
   deriving (Show)
 
 weight WBEmpty = 0
-weight (WBNode r _ _ _) = r
+weight (WBNode a x b) = 1 + (weight a) + (weight b)
 wbMakeT a x b
-  | weight a >= weight b = WBNode (weight b + 1) a x b
-  | otherwise        = WBNode (weight a + 1) b x a
+  | weight a >= weight b = WBNode a x b
+  | otherwise        = WBNode b x a
 
 instance Heap WeightBiasedLeftistHeap where
   empty = WBEmpty
   isEmpty WBEmpty = True
   isEmpty _ = False
-  insert x h = merge (WBNode 1 WBEmpty x WBEmpty) h
+  insert x h = merge (WBNode WBEmpty x WBEmpty) h
 
   merge h WBEmpty = h
   merge WBEmpty h = h
-  merge h1@(WBNode _ a1 x b1) h2@(WBNode _ a2 y b2)
+  merge h1@(WBNode a1 x b1) h2@(WBNode a2 y b2)
     | x <= y    = wbMakeT a1 x (merge b1 h2)
     | otherwise = wbMakeT a2 y (merge h1 b2)
 
   findMin WBEmpty = error "Empty Weight Biased Leftist Heap"
-  findMin (WBNode _ _ x _) = x
+  findMin (WBNode _ x _) = x
 
   deleteMin WBEmpty = error "Empty Weight Biased Leftist Heap"
-  deleteMin (WBNode _ a x b) = merge a b
+  deleteMin (WBNode a x b) = merge a b
+
+
+wbFromList :: Ord a => [a] -> WeightBiasedLeftistHeap a
+wbFromList l = head $ keepMergingPairs $ singletons
+  where singletons = map (\e -> WBNode WBEmpty e WBEmpty) l
+        mergePairs (x:y:xs) = (merge x y) : mergePairs xs
+        mergePairs [x]      = [x]
+        mergePairs []       = []
+        keepMergingPairs [x] = [x]
+        keepMergingPairs x = keepMergingPairs (mergePairs x)
+
+
+draw :: WeightBiasedLeftistHeap a -> Doc
+draw WBEmpty = text "o"
+draw (WBNode l x r) = text "x" $+$ (draw l)
+--printTree t = :sp 
