@@ -1,13 +1,6 @@
-module Pfds.Ch03.Ex where
+module Pfds.Ch03.LeftistHeap where
 import Text.PrettyPrint
-
-class Heap h where
-  empty   :: Ord a => h a
-  isEmpty :: Ord a => h a -> Bool
-  insert  :: Ord a => a -> h a -> h a
-  merge   :: Ord a => h a -> h a -> h a
-  findMin :: Ord a => h a -> a
-  deleteMin :: Ord a => h a -> h a
+import Pfds.Ch03.Heap
 
 data LeftistHeap a = Empty | Node Int (LeftistHeap a) a (LeftistHeap a)
   deriving (Show)
@@ -100,3 +93,5 @@ draw :: WeightBiasedLeftistHeap a -> Doc
 draw WBEmpty = text "o"
 draw (WBNode l x r) = text "x" $+$ (draw l)
 --printTree t = :sp 
+
+

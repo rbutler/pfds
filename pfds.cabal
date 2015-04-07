@@ -21,7 +21,9 @@ library
   -- other-modules:       
   -- other-extensions:    
   exposed-modules:     
-                       Pfds.Ch03.Ex
+                       Pfds.Ch03.BinomialHeap
+                     , Pfds.Ch03.LeftistHeap
+                     , Pfds.Ch03.Heap
                      , Pfds.Ch02.Ex
   build-depends:       base >=4.7 && <4.8
                      , transformers
