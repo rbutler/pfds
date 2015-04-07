@@ -21,7 +21,8 @@ library
   -- other-modules:       
   -- other-extensions:    
   exposed-modules:     
-                       Pfds.Ch03.BinomialHeap
+                       Pfds.Ch03.RedBlack
+                     , Pfds.Ch03.BinomialHeap
                      , Pfds.Ch03.LeftistHeap
                      , Pfds.Ch03.Heap
                      , Pfds.Ch02.Ex
