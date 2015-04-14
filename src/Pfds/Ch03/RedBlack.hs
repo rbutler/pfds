@@ -27,12 +27,12 @@ instance Set RedBlackSet where
     | x > y     = member x b
     | otherwise = True
   insert x s = T B a y b
-    where ins E = T R E x E
+    where tfoo@(T _ a y b) = ins s
+          ins E = T R E x E
           ins s@(T color a y b)
             | x < y     = balance color (ins a) y b
             | x > y     = balance color a y (ins b)
             | otherwise = s
-          T _ a y b = ins s
 
 fromOrdList :: Ord x => [x] -> RedBlackSet x
 fromOrdList [x] = insert x E

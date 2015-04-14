@@ -1,4 +1,4 @@
-module Pfds.Ch03.BinomialHeap where
+module Pfds.Ch03.BinomialHeapTwo where
 import Text.PrettyPrint
 import Pfds.Ch03.Heap
 
@@ -11,11 +11,11 @@ newtype BinomialHeap a = BH [(Int, Tree a)]
 --rank (Node r x c) = r
 root (Node x c) = x
 
-link t1@(Node r x1 c1) t2@(Node _ x2 c2)
-  | x1 <= x2  = Node (r+1) x1 (t2:c1)
-  | otherwise = Node (r+1) x2 (t1:c2)
+link (r1, t1@(Node x1 c1)) (r2, t2@(Node x2 c2))
+  | x1 <= x2  = Node (r1+1) x1 (t2:c1)
+  | otherwise = Node (r1+1) x2 (t1:c2)
 
-insTree t [] = [t]
+insTree (r, t) [] = [t]
 insTree t ts@(t':ts')
   | rank t < rank t' = t:ts
   | otherwise        = insTree (link t t') ts'
