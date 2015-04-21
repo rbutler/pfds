@@ -24,6 +24,6 @@ instance Queue BatchedQueue where
   tail (BQ [] _ ) = error "Empty Queue"
   tail (BQ (x:f) r) = check f r
 
-q = snoc (BQ [] []) 1
-q' = snoc q 2
+q   = snoc (BQ [] []) 1
+q'  = snoc q 2
 q'' = snoc (snoc q' 3) 4
