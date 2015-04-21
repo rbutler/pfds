@@ -22,8 +22,8 @@ library
   -- other-extensions:    
   exposed-modules:     
                      -- Pfds.Ch03.BinomialHeapTwo
-                       Pfds.Ch05.Queue
-                     , Pfds.Ch05.Dequeue
+                       Pfds.Ch05.Dequeue
+                     , Pfds.Ch05.Queue
                      , Pfds.Ch03.BinomialHeap
                      , Pfds.Ch03.RedBlack
                      , Pfds.Ch03.LeftistHeap
